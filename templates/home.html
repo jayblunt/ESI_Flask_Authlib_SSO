@@ -1,0 +1,10 @@
+{% if user %}
+<pre>
+{% set user_id = user.sub.split(':')[-1] %}
+{{ user.name }}
+{{ user_id }}
+</pre>
+<a href="/sso/logout">logout</a>
+{% else %}
+<a href="/sso/login">login</a>
+{% endif %}
