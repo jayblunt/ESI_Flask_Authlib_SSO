@@ -46,7 +46,7 @@ def sso_callback():
     token = oauth.eveonline.authorize_access_token()
 
     ## Find the signature key
-    t_jwk_set = oauth.eveonline._fetch_jwk_set()
+    t_jwk_set = oauth.eveonline.fetch_jwk_set()
     jwt_signature_key = None
     for x in list(t_jwk_set.get('keys') or []):
         if x.get('kid') == 'JWT-Signature-Key':
