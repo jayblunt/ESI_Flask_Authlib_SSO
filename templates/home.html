@@ -1,6 +1,7 @@
 {% if user %}
-<pre>
 {% set user_id = user.sub.split(':')[-1] %}
+<img width=128 height=128 alt="{{user.name}}" src="https://images.evetech.net/characters/{{user_id}}/portrait?size=128">
+<pre>
 {{ user.name }}
 {{ user_id }}
 </pre>

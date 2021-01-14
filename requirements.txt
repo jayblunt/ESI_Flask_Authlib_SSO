@@ -1,0 +1,5 @@
+flask
+requests
+authlib
+blinker
+waitress

@@ -1,6 +1,6 @@
 from flask import Flask, url_for, session
 from flask import render_template, redirect
-from authlib.integrations.flask_client import OAuth
+from authlib.integrations.flask_client import OAuth, token_update
 from authlib.jose import jwt
 
 import app_config
@@ -21,6 +21,23 @@ oauth.register(
         'datasource': 'tranquility'
     }
 )
+
+
+
+
+@token_update.connect_via(app)
+def on_token_update(sender, name, token, refresh_token=None, access_token=None):
+    if refresh_token:
+        item = OAuth2Token.find(name=name, refresh_token=refresh_token)
+    elif access_token:
+        item = OAuth2Token.find(name=name, access_token=access_token)
+    else:
+        return
+
+    item.access_token = token['access_token']
+    item.refresh_token = token.get('refresh_token')
+    item.expires_at = token['expires_at']
+    item.save()
 
 
 
